@@ -1,0 +1,14 @@
+/* * {
+  border: 1px solid red;
+} */
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
