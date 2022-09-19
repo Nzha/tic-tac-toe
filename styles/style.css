@@ -11,8 +11,22 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: rgb(187 247 208);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.boardgame {
+    width: 400px;
+    height: 400px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.space {
+    border: 2px solid grey;
+    margin: -1px -1px -1px -1px;
 }
