@@ -11,14 +11,14 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: rgb(187 247 208);
+    background-color: #94a3b8;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.boardgame {
+.gameboard {
     width: 400px;
     height: 400px;
     background-color: white;

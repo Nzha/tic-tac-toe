@@ -1,15 +1,17 @@
 const gameboard = (() => {
 
-    const array = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9]
-    ];
+    const gameboardDiv = document.querySelector('.gameboard');
 
+    // Create a 3*3 array with 0 as values
+    const array = new Array(3).fill(new Array(3).fill(0));
+
+    // Add a div to each space to display gameboard
     const display = () => {
         for (const row of array) {
             for (space of row) {
-                console.log(space);
+                const newSpace = document.createElement('div');
+                newSpace.classList.add('space');
+                gameboardDiv.appendChild(newSpace);
             }
         }
     };
