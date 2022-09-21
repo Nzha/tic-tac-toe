@@ -15,8 +15,8 @@ const gameboard = (() => {
         [0, 0, 0]
       ];
 
-    let row = 0;
-    let column = 0;
+    let _row = 0;
+    let _column = 0;
 
     // Create space div to display gameboard and save row and column # to data attribute
     const display = () => {
@@ -24,13 +24,13 @@ const gameboard = (() => {
             for (space of rows) {
                 const newSpace = document.createElement('div');
                 newSpace.classList.add('space');
-                newSpace.setAttribute('data-row', `${row}`)
-                newSpace.setAttribute('data-column', `${column}`)
+                newSpace.setAttribute('data-row', `${_row}`)
+                newSpace.setAttribute('data-column', `${_column}`)
                 _gameboard.appendChild(newSpace);
                 
-                (column > 1) ? column = 0 : column++;
+                (_column > 1) ? _column = 0 : _column++;
             }
-            row++;
+            _row++;
         }
     };
 
@@ -50,6 +50,9 @@ const displayController = (() => {
     playerX.active = 'true';
 
     function display(e) {
+        // Return if space has a mark already
+        if (e.target.textContent !== '') return;
+
         if (playerX.active) {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
             e.target.textContent = 'X';
