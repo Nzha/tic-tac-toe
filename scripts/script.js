@@ -8,20 +8,25 @@ const playerO = Player('O');
 
 const gameboard = (() => {
     const _gameboard = document.querySelector('.gameboard');
-    
+
+    const array = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+      ];
+
     let row = 0;
     let column = 0;
 
-    // Create a 3*3 array with 0 as values
-    const _array = new Array(3).fill(new Array(3).fill(0));
-
     // Add a div to each space to display gameboard
     const display = () => {
-        for (const rows of _array) {
+        for (const rows of array) {
             for (space of rows) {
                 const newSpace = document.createElement('div');
+
                 newSpace.classList.add('space');
-                newSpace.setAttribute('id', `${row} ${column}`)
+                newSpace.setAttribute('data-row', `${row}`)
+                newSpace.setAttribute('data-column', `${column}`)
                 _gameboard.appendChild(newSpace);
                 
                 (column > 1) ? column = 0 : column++;
@@ -31,6 +36,7 @@ const gameboard = (() => {
     };
 
     return {
+        array,
         display
     };
 })();
@@ -46,13 +52,15 @@ const displayController = (() => {
 
     function display(e) {
         if (playerX.active) {
-            console.log(e);
+            gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
             e.target.textContent = 'X';
             playerX.active = false;
         } else {
+            gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
             e.target.textContent = 'O';
             playerX.active = true;
         }
+        console.table(gameboard.array);
     }
 
     return {
@@ -61,3 +69,7 @@ const displayController = (() => {
 })();
 
 displayController.display;
+
+const game = (() => {
+    
+})();
