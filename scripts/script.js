@@ -18,12 +18,11 @@ const gameboard = (() => {
     let row = 0;
     let column = 0;
 
-    // Add a div to each space to display gameboard
+    // Create space div to display gameboard and save row and column # to data attribute
     const display = () => {
         for (const rows of array) {
             for (space of rows) {
                 const newSpace = document.createElement('div');
-
                 newSpace.classList.add('space');
                 newSpace.setAttribute('data-row', `${row}`)
                 newSpace.setAttribute('data-column', `${column}`)
