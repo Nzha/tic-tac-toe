@@ -23,10 +23,16 @@ body {
     height: 400px;
     background-color: white;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 }
 
 .space {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: #334155;
     border: 2px solid grey;
     margin: -1px -1px -1px -1px;
 }

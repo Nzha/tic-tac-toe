@@ -8,18 +8,25 @@ const playerO = Player('O');
 
 const gameboard = (() => {
     const _gameboard = document.querySelector('.gameboard');
+    
+    let row = 0;
+    let column = 0;
 
     // Create a 3*3 array with 0 as values
     const _array = new Array(3).fill(new Array(3).fill(0));
 
     // Add a div to each space to display gameboard
     const display = () => {
-        for (const row of _array) {
-            for (space of row) {
+        for (const rows of _array) {
+            for (space of rows) {
                 const newSpace = document.createElement('div');
                 newSpace.classList.add('space');
+                newSpace.setAttribute('id', `${row} ${column}`)
                 _gameboard.appendChild(newSpace);
+                
+                (column > 1) ? column = 0 : column++;
             }
+            row++;
         }
     };
 
@@ -35,7 +42,22 @@ const displayController = (() => {
 
     _spaces.forEach(space => space.addEventListener('click', display));
 
-    function display() {
-        console.log('works');
+    playerX.active = 'true';
+
+    function display(e) {
+        if (playerX.active) {
+            console.log(e);
+            e.target.textContent = 'X';
+            playerX.active = false;
+        } else {
+            e.target.textContent = 'O';
+            playerX.active = true;
+        }
     }
+
+    return {
+        display
+    };
 })();
+
+displayController.display;
