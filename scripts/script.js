@@ -1,6 +1,6 @@
-const Player = (name) => {
+const Player = (mark) => {
     let score = 0;
-    return {name, score} ;
+    return {mark, score} ;
 }
 
 const playerX = Player('X');
@@ -10,9 +10,9 @@ const gameboard = (() => {
     const _gameboard = document.querySelector('.gameboard');
 
     const array = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
       ];
 
     let _row = 0;
@@ -20,8 +20,8 @@ const gameboard = (() => {
 
     // Create space div to display gameboard and save row and column # to data attribute
     const display = () => {
-        for (const rows of array) {
-            for (space of rows) {
+        for (const row of array) {
+            for (space of row) {
                 const newSpace = document.createElement('div');
                 newSpace.classList.add('space');
                 newSpace.setAttribute('data-row', `${_row}`)
@@ -50,7 +50,7 @@ const displayController = (() => {
     playerX.active = 'true';
 
     function display(e) {
-        // Return if space has a mark already
+        // Return if space has already a mark
         if (e.target.textContent !== '') return;
 
         if (playerX.active) {
@@ -62,7 +62,44 @@ const displayController = (() => {
             e.target.textContent = 'O';
             playerX.active = true;
         }
-        console.table(gameboard.array);
+        // console.table(gameboard.array);
+
+        // for (const row of gameboard.array) {
+        //     for (space of row) {
+        //         console.log(row)
+        //         console.log(space);
+        //         // console.log(gameboard.array[row][space]);
+        //     }
+        // }
+
+        let countH = 0;
+        let countV = 0;
+        let countD = 0;
+
+        match:
+        for (let i = 0; i < gameboard.array.length; i++) {
+            for (let j = 0; j < gameboard.array[i].length; j++) {
+                // if (gameboard.array[i][j] == 'X' && gameboard.array[i][j]) {
+                    console.log(`ij: ${gameboard.array[i][j]}`);
+                    console.log(`ji: ${gameboard.array[j][i]}`);
+                    // Check matches horizontally
+                    if (gameboard.array[i][j] == 'X') {
+                        countH++
+                        console.log(`countH: ${countH}`)
+                    }
+                    // if (gameboard.array[j][i] == 'X' && gameboard.array[i][j] !== gameboard.array[j][i]) {
+                    if (gameboard.array[j][i] == 'X') {
+                        countV++
+                        console.log(`countV: ${countV}`)
+                    }
+                    if (countH == 3 || countV == 3) {
+                        console.log('wins!');
+                        break match;
+                    }
+                // }
+            }
+        }
+
     }
 
     return {
