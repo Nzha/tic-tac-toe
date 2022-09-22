@@ -83,14 +83,18 @@ const displayController = (() => {
                     console.log(`ij: ${gameboard.array[i][j]}`);
                     console.log(`ji: ${gameboard.array[j][i]}`);
                     // Check matches horizontally
-                    if (gameboard.array[i][j] == 'X') {
+                    if (gameboard.array[i][j] === 'X') {
                         countH++
                         console.log(`countH: ${countH}`)
+                    } else { 
+                        countH = 0;
                     }
                     // if (gameboard.array[j][i] == 'X' && gameboard.array[i][j] !== gameboard.array[j][i]) {
-                    if (gameboard.array[j][i] == 'X') {
+                    if (gameboard.array[j][i] === 'X') {
                         countV++
                         console.log(`countV: ${countV}`)
+                    } else {
+                        countV = 0;
                     }
                     if (countH == 3 || countV == 3) {
                         console.log('wins!');
