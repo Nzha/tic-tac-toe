@@ -72,37 +72,55 @@ const displayController = (() => {
         //     }
         // }
 
+
+
         let countH = 0;
         let countV = 0;
-        let countD = 0;
+        let countDl = 0;
+        let countDr = 0;
 
         match:
         for (let i = 0; i < gameboard.array.length; i++) {
             for (let j = 0; j < gameboard.array[i].length; j++) {
-                // if (gameboard.array[i][j] == 'X' && gameboard.array[i][j]) {
-                    console.log(`ij: ${gameboard.array[i][j]}`);
-                    console.log(`ji: ${gameboard.array[j][i]}`);
-                    // Check matches horizontally
-                    if (gameboard.array[i][j] === 'X') {
-                        countH++
-                        console.log(`countH: ${countH}`)
-                    } else { 
-                        countH = 0;
-                    }
-                    // if (gameboard.array[j][i] == 'X' && gameboard.array[i][j] !== gameboard.array[j][i]) {
-                    if (gameboard.array[j][i] === 'X') {
-                        countV++
-                        console.log(`countV: ${countV}`)
-                    } else {
-                        countV = 0;
-                    }
-                    if (countH == 3 || countV == 3) {
-                        console.log('wins!');
-                        break match;
-                    }
-                // }
+                console.log(`i: ${i} & j:${j}`);
+                // Check matches horizontally
+                if (gameboard.array[i][j] === 'X') {
+                    countH++
+                    console.log(`countH: ${countH}`)
+                } else { 
+                    countH = 0;
+                }
+                // Check matches vertically
+                if (gameboard.array[j][i] === 'X') {
+                    countV++
+                    console.log(`countV: ${countV}`)
+                } else {
+                    countV = 0;
+                }
+                // Check matches diagonally
+                if (gameboard.array[i][j] === 'X' && i === j) {
+                    countDl++
+                    console.log(`countDl: ${countDl}`)
+                } else {
+                    countDl = 0;
+                }
+                if (gameboard.array[j][i] === 'X' && (i+j) === 2) {
+                    countDr++
+                    console.log(`countDr: ${countDr}`)
+                } else {
+                    countDr = 0;
+                }
+                // Display result
+                if (countH == 3 || countV == 3 || countDl == 3 || countDr == 3) {
+                    console.log('wins!');
+                    break match;
+                }
             }
         }
+
+
+        // let test = gameboard.array.map((row, index, self) => row[self.length - 1 - index])
+        // console.log(test);
 
     }
 
