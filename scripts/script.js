@@ -64,48 +64,8 @@ const displayController = (() => {
         }
         // console.table(gameboard.array);
 
-
-
-        let countRow = 0;
-        let countColumn = 0;
-        let countDiagonalLeft = 0;
-        let countDiagonalRight = 0;
-
-        match:
-        for (let i = 0; i < gameboard.array.length; i++) {
-            for (let j = 0; j < gameboard.array[i].length; j++) {
-                // Check matches horizontally
-                if (gameboard.array[i][j] == 'X') {
-                    countRow++
-                } else { 
-                    countRow = 0;
-                }
-                // Check matches vertically
-                if (gameboard.array[j][i] == 'X') {
-                    countColumn++
-                } else {
-                    countColumn = 0;
-                }
-                // Check matches diagonally
-                if (gameboard.array[i][j] == 'X' && i == j) {
-                    countDiagonalLeft++
-                }
-                if (gameboard.array[i][j] == 'X' && (i + j) == 2) {
-                    countDiagonalRight++
-                }
-                // Display result
-                if (countRow == 3 || countColumn == 3 || countDiagonalLeft == 3 || countDiagonalRight == 3) {
-                    console.log('wins!');
-                    break match;
-                }
-            }
-            // Stop count incrementing when all 3 consecutive values are not on the same row or column
-            countRow = 0;
-            countColumn = 0;
-        }
-
+        game.winner();
     }
-
 
     return {
         display
@@ -115,5 +75,50 @@ const displayController = (() => {
 displayController.display;
 
 const game = (() => {
-    
+
+    const winner = () => {
+
+        let _countRow = 0;
+        let _countColumn = 0;
+        let _countDiagonalLeft = 0;
+        let _countDiagonalRight = 0;
+
+        match:
+        for (let i = 0; i < gameboard.array.length; i++) {
+            for (let j = 0; j < gameboard.array[i].length; j++) {
+                // Check matches horizontally
+                if (gameboard.array[i][j] == 'X') {
+                    _countRow++
+                } else { 
+                    _countRow = 0;
+                }
+                // Check matches vertically
+                if (gameboard.array[j][i] == 'X') {
+                    _countColumn++
+                } else {
+                    _countColumn = 0;
+                }
+                // Check matches diagonally
+                if (gameboard.array[i][j] == 'X' && i == j) {
+                    _countDiagonalLeft++;
+                }
+                if (gameboard.array[i][j] == 'X' && (i + j) == 2) {
+                    _countDiagonalRight++;
+                }
+                // Display result
+                if (_countRow == 3 || _countColumn == 3 || _countDiagonalLeft == 3 || _countDiagonalRight == 3) {
+                    console.log('wins!');
+                    break match;
+                }
+            }
+            // Stop count incrementing when all 3 consecutive values are not on the same row or column
+            _countRow = 0;
+            _countColumn = 0;
+        }
+    };
+
+    return {
+        winner
+    };
+
 })();
