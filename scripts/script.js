@@ -64,14 +64,6 @@ const displayController = (() => {
         }
         // console.table(gameboard.array);
 
-        // for (const row of gameboard.array) {
-        //     for (space of row) {
-        //         console.log(row)
-        //         console.log(space);
-        //         // console.log(gameboard.array[row][space]);
-        //     }
-        // }
-
 
 
         let countH = 0;
@@ -82,48 +74,34 @@ const displayController = (() => {
         match:
         for (let i = 0; i < gameboard.array.length; i++) {
             for (let j = 0; j < gameboard.array[i].length; j++) {
-                // console.log(`i: ${i} & j:${j}`);
                 // Check matches horizontally
                 if (gameboard.array[i][j] == 'X') {
                     countH++
-                    console.log(`countH: ${countH}`)
                 } else { 
                     countH = 0;
                 }
                 // Check matches vertically
                 if (gameboard.array[j][i] == 'X') {
                     countV++
-                    // console.log(`i: ${i} & j:${j}`);
-                    console.log(`countV: ${countV}`)
                 } else {
                     countV = 0;
                 }
                 // Check matches diagonally
                 if (gameboard.array[i][j] == 'X' && i == j) {
                     countDl++
-                    console.log(`countDl: ${countDl}`)
                 }
-                if (gameboard.array[i][j] == 'X' && (i+j) == 2) {
+                if (gameboard.array[i][j] == 'X' && (i + j) == 2) {
                     countDr++
-                    console.log(`countDr: ${countDr}`)
                 }
-                // if (gameboard.array[0][0] == 'X' && gameboard.array[1][1] == 'X' && gameboard.array[2][2] == 'X') {
-                //     console.log('wins!');
-                //     break match;
-                // }
-                // if (gameboard.array[2][0] == 'X' && gameboard.array[1][1] == 'X' && gameboard.array[0][2] == 'X') {
-                //     console.log('wins!');
-                //     break match;
-                // }
                 // Display result
                 if (countH == 3 || countV == 3 || countDl == 3 || countDr == 3) {
                     console.log('wins!');
                     break match;
                 }
             }
+            countH = 0;
+            countV = 0;
         }
-        console.log('STOP');
-
 
     }
 
