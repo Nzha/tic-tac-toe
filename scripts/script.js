@@ -1,11 +1,20 @@
-const Player = (mark) => {
-    let score = 0;
-    return {mark, score} ;
-}
+// Set up players
+const player = (() => {
+    const _Player = (mark) => {
+        let score = 0;
+        return {mark, score} ;
+    }
+    
+    const X = _Player('X');
+    const O = _Player('O');
 
-const playerX = Player('X');
-const playerO = Player('O');
+    return {
+        X,
+        O
+    }
+})();
 
+// Setup gameboard and display it on webpage
 const gameboard = (() => {
     const _gameboard = document.querySelector('.gameboard');
 
@@ -42,25 +51,26 @@ const gameboard = (() => {
 
 gameboard.display();
 
+// Display marks on gameboard
 const displayController = (() => {
     const _spaces = document.querySelectorAll('.space');
 
     _spaces.forEach(space => space.addEventListener('click', display));
 
-    playerX.active = 'true';
+    player.X.active = 'true';
 
     function display(e) {
         // Return if space has already a mark
         if (e.target.textContent !== '') return;
 
-        if (playerX.active) {
+        if (player.X.active) {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
             e.target.textContent = 'X';
-            playerX.active = false;
+            player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
             e.target.textContent = 'O';
-            playerX.active = true;
+            player.X.active = true;
         }
         // console.table(gameboard.array);
 
@@ -74,6 +84,7 @@ const displayController = (() => {
 
 displayController.display;
 
+// Get winner
 const game = (() => {
 
     const winner = () => {
