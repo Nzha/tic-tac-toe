@@ -63,10 +63,12 @@ const displayController = (() => {
         if (player.X.active) {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
             e.target.textContent = 'X';
+            e.target.style.color = '#ffd900';
             player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
             e.target.textContent = 'O';
+            e.target.style.color = '#fa5c0c';
             player.X.active = true;
         }
         // console.table(gameboard.array);
