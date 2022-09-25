@@ -51,7 +51,7 @@ gameboard.display();
 
 const controller = (() => {
     const _spaces = document.querySelectorAll('.space');
-    const _scoreDisplay = document.querySelector('.score-display')    
+    const scoreDisplay = document.querySelector('.score-display')    
 
     _spaces.forEach(space => space.addEventListener('click', display));
 
@@ -65,21 +65,23 @@ const controller = (() => {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
-            _scoreDisplay.textContent = `Player 0's turn`;
+            scoreDisplay.style.color = '#fa5c0c';
+            scoreDisplay.textContent = `Player 0's turn`;
             player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
-            _scoreDisplay.textContent = `Player X's turn`;
+            scoreDisplay.style.color = '#ffd900';
+            scoreDisplay.textContent = `Player X's turn`;
             player.X.active = true;
         }
-        // console.table(gameboard.array);
 
         game.winner();
     }
 
     return {
+        scoreDisplay,
         display
     };
 })();
@@ -119,7 +121,7 @@ const game = (() => {
                 }
                 // Display result
                 if (_countRow == 3 || _countColumn == 3 || _countDiagonalLeft == 3 || _countDiagonalRight == 3) {
-                    console.log('wins!');
+                    controller.scoreDisplay.textContent = 'Player X wins!'
                     break match;
                 }
             }
