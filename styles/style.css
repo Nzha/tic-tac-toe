@@ -18,10 +18,11 @@ body {
 }
 
 header {
+    font-family: 'Merienda One', cursive;
     display: flex;
     justify-content: center;
     font-size: 3rem;
-    color: #ffd900;
+    color: #00bd9c;
     background-color: #212628;
 }
 
@@ -31,17 +32,20 @@ header > h2 {
 
 .main-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex: 1;
 }
 
 .gameboard {
+    font-family: 'Merienda One', cursive;
     width: 500px;
     height: 500px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    margin: 3rem 0 5rem 0;
 }
 
 .space {
@@ -75,4 +79,18 @@ header > h2 {
 /* Right column */
 .space:nth-child(3n) {
     border-right: none;
+}
+
+button {
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: #212628;
+    color: #00bd9c;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 4rem;
+}
+
+button:hover {
+    background-color: black;
 }
