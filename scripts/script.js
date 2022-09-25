@@ -66,41 +66,42 @@ const displayController = (() => {
 
 
 
-        let countH = 0;
-        let countV = 0;
-        let countDl = 0;
-        let countDr = 0;
+        let countRow = 0;
+        let countColumn = 0;
+        let countDiagonalLeft = 0;
+        let countDiagonalRight = 0;
 
         match:
         for (let i = 0; i < gameboard.array.length; i++) {
             for (let j = 0; j < gameboard.array[i].length; j++) {
                 // Check matches horizontally
                 if (gameboard.array[i][j] == 'X') {
-                    countH++
+                    countRow++
                 } else { 
-                    countH = 0;
+                    countRow = 0;
                 }
                 // Check matches vertically
                 if (gameboard.array[j][i] == 'X') {
-                    countV++
+                    countColumn++
                 } else {
-                    countV = 0;
+                    countColumn = 0;
                 }
                 // Check matches diagonally
                 if (gameboard.array[i][j] == 'X' && i == j) {
-                    countDl++
+                    countDiagonalLeft++
                 }
                 if (gameboard.array[i][j] == 'X' && (i + j) == 2) {
-                    countDr++
+                    countDiagonalRight++
                 }
                 // Display result
-                if (countH == 3 || countV == 3 || countDl == 3 || countDr == 3) {
+                if (countRow == 3 || countColumn == 3 || countDiagonalLeft == 3 || countDiagonalRight == 3) {
                     console.log('wins!');
                     break match;
                 }
             }
-            countH = 0;
-            countV = 0;
+            // Stop count incrementing when all 3 consecutive values are not on the same row or column
+            countRow = 0;
+            countColumn = 0;
         }
 
     }
