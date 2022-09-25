@@ -49,8 +49,9 @@ const gameboard = (() => {
 
 gameboard.display();
 
-const displayController = (() => {
+const controller = (() => {
     const _spaces = document.querySelectorAll('.space');
+    const _scoreDisplay = document.querySelector('.score-display')    
 
     _spaces.forEach(space => space.addEventListener('click', display));
 
@@ -64,11 +65,13 @@ const displayController = (() => {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
+            _scoreDisplay.textContent = `Player 0's turn`;
             player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
+            _scoreDisplay.textContent = `Player X's turn`;
             player.X.active = true;
         }
         // console.table(gameboard.array);
@@ -81,7 +84,7 @@ const displayController = (() => {
     };
 })();
 
-displayController.display;
+controller.display;
 
 const game = (() => {
 

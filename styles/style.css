@@ -38,6 +38,12 @@ header > h2 {
     flex: 1;
 }
 
+.score-display {
+    font-size: 2rem;
+    color: lightgray;
+    min-height: 2.3rem;
+}
+
 .gameboard {
     font-family: 'Merienda One', cursive;
     width: 500px;
