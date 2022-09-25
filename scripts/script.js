@@ -1,4 +1,3 @@
-// Set up players
 const player = (() => {
     const _Player = (mark) => {
         let score = 0;
@@ -14,7 +13,6 @@ const player = (() => {
     }
 })();
 
-// Setup gameboard and display it on webpage
 const gameboard = (() => {
     const _gameboard = document.querySelector('.gameboard');
 
@@ -51,7 +49,6 @@ const gameboard = (() => {
 
 gameboard.display();
 
-// Display marks on gameboard
 const displayController = (() => {
     const _spaces = document.querySelectorAll('.space');
 
@@ -84,7 +81,6 @@ const displayController = (() => {
 
 displayController.display;
 
-// Get winner
 const game = (() => {
 
     const winner = () => {
