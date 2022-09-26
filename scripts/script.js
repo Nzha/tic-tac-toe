@@ -137,7 +137,7 @@ const game = (() => {
 
         resetBtn.addEventListener('click', function() {
             clearArray()
-            clearGameboard()
+            clearDisplay()
         })
 
         function clearArray() {
@@ -149,10 +149,13 @@ const game = (() => {
             console.table(gameboard.array);
         }
 
-        function clearGameboard() {
+        function clearDisplay() {
             controller.spaces.forEach(space => {
                 space.textContent = '';
             });
+
+            controller.scoreDisplay.textContent = 'Please click on the board to start the game';
+            controller.scoreDisplay.style.color = 'inherit';
         }
     };
 

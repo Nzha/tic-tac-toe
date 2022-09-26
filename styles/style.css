@@ -11,6 +11,7 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
+    color: lightgray;
     background-color: #33383f;
     display: flex;
     flex-direction: column;
@@ -40,7 +41,6 @@ header > h2 {
 
 .score-display {
     font-size: 2rem;
-    color: lightgray;
     min-height: 2.3rem;
 }
 
