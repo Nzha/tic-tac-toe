@@ -50,10 +50,10 @@ const gameboard = (() => {
 gameboard.display();
 
 const controller = (() => {
-    const _spaces = document.querySelectorAll('.space');
+    const spaces = document.querySelectorAll('.space');
     const scoreDisplay = document.querySelector('.score-display')    
 
-    _spaces.forEach(space => space.addEventListener('click', display));
+    spaces.forEach(space => space.addEventListener('click', display));
 
     player.X.active = 'true';
 
@@ -76,11 +76,12 @@ const controller = (() => {
             scoreDisplay.textContent = `Player X's turn`;
             player.X.active = true;
         }
-
+        console.table(gameboard.array);
         game.winner();
     }
 
     return {
+        spaces,
         scoreDisplay,
         display
     };
@@ -131,8 +132,35 @@ const game = (() => {
         }
     };
 
+    const reset = () => {
+        const resetBtn = document.querySelector('#reset');
+
+        resetBtn.addEventListener('click', function() {
+            clearArray()
+            clearGameboard()
+        })
+
+        function clearArray() {
+            for (let i = 0; i < gameboard.array.length; i++) {
+                for (let j = 0; j < gameboard.array[i].length; j++) {
+                    gameboard.array[i][j] = '';
+                }
+            }
+            console.table(gameboard.array);
+        }
+
+        function clearGameboard() {
+            controller.spaces.forEach(space => {
+                space.textContent = '';
+            });
+        }
+    };
+
     return {
-        winner
+        winner,
+        reset
     };
 
 })();
+
+game.reset();
