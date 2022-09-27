@@ -51,7 +51,7 @@ header > h2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    margin: 3rem 0 5rem 0;
+    margin: 4rem 0 4rem 0;
 }
 
 .space {
