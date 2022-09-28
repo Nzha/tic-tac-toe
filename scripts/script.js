@@ -16,12 +16,6 @@ const player = (() => {
 const gameboard = (() => {
     const _gameboard = document.querySelector('.gameboard');
 
-    // const array = [
-    //     ['', '', ''],
-    //     ['', '', ''],
-    //     ['', '', '']
-    //   ];
-
     let array = [
         '', '', '',
         '', '', '',
@@ -30,22 +24,6 @@ const gameboard = (() => {
 
     let _row = 0;
     let _column = 0;
-
-    // // Create space div to display gameboard and save row and column # to data attribute
-    // const display = () => {
-    //     for (const row of array) {
-    //         for (space of row) {
-    //             const newSpace = document.createElement('div');
-    //             newSpace.classList.add('space');
-    //             newSpace.setAttribute('data-row', `${_row}`)
-    //             newSpace.setAttribute('data-column', `${_column}`)
-    //             _gameboard.appendChild(newSpace);
-                
-    //             (_column > 1) ? _column = 0 : _column++;
-    //         }
-    //         _row++;
-    //     }
-    // };
 
     // Create space div to display gameboard and save row and column # to data attribute
     const display = () => {
@@ -83,7 +61,6 @@ const controller = (() => {
         if (e.target.textContent !== '') return;
 
         if (player.X.active) {
-            // gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
             gameboard.array[`${e.target.dataset.row}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
@@ -91,7 +68,6 @@ const controller = (() => {
             scoreDisplay.textContent = `Player 0's turn`;
             player.X.active = false;
         } else {
-            // gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
             gameboard.array[`${e.target.dataset.row}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
@@ -99,8 +75,17 @@ const controller = (() => {
             scoreDisplay.textContent = `Player X's turn`;
             player.X.active = true;
         }
-        // console.table(gameboard.array);
-        game.winner();
+
+        let winner = game.winner();
+
+        if(winner) {
+            if (winner === 'X') {
+                controller.scoreDisplay.style.color = '#ffd900'
+            } else {
+                controller.scoreDisplay.style.color = '#fa5c0c';
+            }
+            controller.scoreDisplay.textContent = `${winner} has won!`;
+        }
     }
 
     return {
@@ -147,10 +132,9 @@ const game = (() => {
                 && gameboard.array[winningCombination[0]] === gameboard.array[winningCombination[2]])
                 {
                 winner = gameboard.array[winningCombination[0]];
-                console.log(winner);
-                return winner;
             }
         });
+        return winner;
     };
 
     const reset = () => {
