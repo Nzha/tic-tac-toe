@@ -22,19 +22,16 @@ const gameboard = (() => {
         '', '', ''
         ];
 
-    let _row = 0;
-    let _column = 0;
+    let _index = 0;
 
     // Create space div to display gameboard and save row and column # to data attribute
     const display = () => {
         for (const row of array) {
             const newSpace = document.createElement('div');
             newSpace.classList.add('space');
-            newSpace.setAttribute('data-index', `${_row}`)
+            newSpace.setAttribute('data-index', `${_index}`)
             _gameboard.appendChild(newSpace);
-            
-            (_column > 1) ? _column = 0 : _column++;
-        _row++;
+            _index++;
         }
     };
 
