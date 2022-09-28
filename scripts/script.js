@@ -16,30 +16,55 @@ const player = (() => {
 const gameboard = (() => {
     const _gameboard = document.querySelector('.gameboard');
 
-    const array = [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', '']
-      ];
+    // const array = [
+    //     ['', '', ''],
+    //     ['', '', ''],
+    //     ['', '', '']
+    //   ];
+
+    let array = [
+        '', '', '',
+        '', '', '',
+        '', '', ''
+        ];
 
     let _row = 0;
     let _column = 0;
 
+    // // Create space div to display gameboard and save row and column # to data attribute
+    // const display = () => {
+    //     for (const row of array) {
+    //         for (space of row) {
+    //             const newSpace = document.createElement('div');
+    //             newSpace.classList.add('space');
+    //             newSpace.setAttribute('data-row', `${_row}`)
+    //             newSpace.setAttribute('data-column', `${_column}`)
+    //             _gameboard.appendChild(newSpace);
+                
+    //             (_column > 1) ? _column = 0 : _column++;
+    //         }
+    //         _row++;
+    //     }
+    // };
+
+
+
     // Create space div to display gameboard and save row and column # to data attribute
     const display = () => {
         for (const row of array) {
-            for (space of row) {
-                const newSpace = document.createElement('div');
-                newSpace.classList.add('space');
-                newSpace.setAttribute('data-row', `${_row}`)
-                newSpace.setAttribute('data-column', `${_column}`)
-                _gameboard.appendChild(newSpace);
-                
-                (_column > 1) ? _column = 0 : _column++;
-            }
-            _row++;
+            const newSpace = document.createElement('div');
+            newSpace.classList.add('space');
+            // newSpace.setAttribute('data-row', `${_row}`)
+            // newSpace.setAttribute('data-column', `${_column}`)
+            newSpace.setAttribute('data-row', `${_row}`)
+            _gameboard.appendChild(newSpace);
+            
+            (_column > 1) ? _column = 0 : _column++;
+        _row++;
         }
     };
+
+
 
     return {
         array,
@@ -62,21 +87,23 @@ const controller = (() => {
         if (e.target.textContent !== '') return;
 
         if (player.X.active) {
-            gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
+            // gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'X';
+            gameboard.array[`${e.target.dataset.row}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
             scoreDisplay.style.color = '#fa5c0c';
             scoreDisplay.textContent = `Player 0's turn`;
             player.X.active = false;
         } else {
-            gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
+            // gameboard.array[`${e.target.dataset.row}`][`${e.target.dataset.column}`] = 'O';
+            gameboard.array[`${e.target.dataset.row}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
             scoreDisplay.style.color = '#ffd900';
             scoreDisplay.textContent = `Player X's turn`;
             player.X.active = true;
         }
-        console.table(gameboard.array);
+        // console.table(gameboard.array);
         game.winner();
     }
 
@@ -93,44 +120,48 @@ const game = (() => {
 
     const winner = () => {
 
-        let _countRow = 0;
-        let _countColumn = 0;
-        let _countDiagonalLeft = 0;
-        let _countDiagonalRight = 0;
+        /**
+        * Indexes within the game board
+        * [0] [1] [2]
+        * [3] [4] [5]
+        * [6] [7] [8]
+        */
+        
+        const winningCombinations = [
+            // Rows
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
 
-        match:
-        for (let i = 0; i < gameboard.array.length; i++) {
-            for (let j = 0; j < gameboard.array[i].length; j++) {
-                // Check matches horizontally
-                if (gameboard.array[i][j] == 'X') {
-                    _countRow++
-                } else { 
-                    _countRow = 0;
-                }
-                // Check matches vertically
-                if (gameboard.array[j][i] == 'X') {
-                    _countColumn++
-                } else {
-                    _countColumn = 0;
-                }
-                // Check matches diagonally
-                if (gameboard.array[i][j] == 'X' && i == j) {
-                    _countDiagonalLeft++;
-                }
-                if (gameboard.array[i][j] == 'X' && (i + j) == 2) {
-                    _countDiagonalRight++;
-                }
-                // Display result
-                if (_countRow == 3 || _countColumn == 3 || _countDiagonalLeft == 3 || _countDiagonalRight == 3) {
-                    controller.scoreDisplay.textContent = 'Player X wins!'
-                    break match;
-                }
+            // Columns
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            
+            // Diagonals
+            [0, 4, 8],
+            [2, 4, 6]
+          ];
+
+        let winner = null;            
+
+        winningCombinations.forEach((winningCombination, index) => {
+            // Win if there is a mark in index 0 and it matches the marks in indexes 1 and 2.
+            if (gameboard.array[winningCombination[0]]
+                && gameboard.array[winningCombination[0]] === gameboard.array[winningCombination[1]]
+                && gameboard.array[winningCombination[0]] === gameboard.array[winningCombination[2]])
+                {
+                winner = gameboard.array[winningCombination[0]];
             }
-            // Stop count incrementing when all 3 consecutive values are not on the same row or column
-            _countRow = 0;
-            _countColumn = 0;
-        }
+        });
+
+        console.log(winner);
+        return winner;
+
+
     };
+
+
 
     const reset = () => {
         const resetBtn = document.querySelector('#reset');
@@ -146,7 +177,7 @@ const game = (() => {
                     gameboard.array[i][j] = '';
                 }
             }
-            console.table(gameboard.array);
+            // console.table(gameboard.array);
         }
 
         function clearDisplay() {
