@@ -47,8 +47,6 @@ const gameboard = (() => {
     //     }
     // };
 
-
-
     // Create space div to display gameboard and save row and column # to data attribute
     const display = () => {
         for (const row of array) {
@@ -63,8 +61,6 @@ const gameboard = (() => {
         _row++;
         }
     };
-
-
 
     return {
         array,
@@ -119,7 +115,6 @@ controller.display;
 const game = (() => {
 
     const winner = () => {
-
         /**
         * Indexes within the game board
         * [0] [1] [2]
@@ -137,7 +132,7 @@ const game = (() => {
             [0, 3, 6],
             [1, 4, 7],
             [2, 5, 8],
-            
+
             // Diagonals
             [0, 4, 8],
             [2, 4, 6]
@@ -152,16 +147,11 @@ const game = (() => {
                 && gameboard.array[winningCombination[0]] === gameboard.array[winningCombination[2]])
                 {
                 winner = gameboard.array[winningCombination[0]];
+                console.log(winner);
+                return winner;
             }
         });
-
-        console.log(winner);
-        return winner;
-
-
     };
-
-
 
     const reset = () => {
         const resetBtn = document.querySelector('#reset');
@@ -173,11 +163,8 @@ const game = (() => {
 
         function clearArray() {
             for (let i = 0; i < gameboard.array.length; i++) {
-                for (let j = 0; j < gameboard.array[i].length; j++) {
-                    gameboard.array[i][j] = '';
-                }
+                gameboard.array[i] = '';
             }
-            // console.table(gameboard.array);
         }
 
         function clearDisplay() {
