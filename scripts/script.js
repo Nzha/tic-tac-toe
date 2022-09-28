@@ -30,9 +30,7 @@ const gameboard = (() => {
         for (const row of array) {
             const newSpace = document.createElement('div');
             newSpace.classList.add('space');
-            // newSpace.setAttribute('data-row', `${_row}`)
-            // newSpace.setAttribute('data-column', `${_column}`)
-            newSpace.setAttribute('data-row', `${_row}`)
+            newSpace.setAttribute('data-index', `${_row}`)
             _gameboard.appendChild(newSpace);
             
             (_column > 1) ? _column = 0 : _column++;
@@ -61,14 +59,14 @@ const controller = (() => {
         if (e.target.textContent !== '') return;
 
         if (player.X.active) {
-            gameboard.array[`${e.target.dataset.row}`] = 'X';
+            gameboard.array[`${e.target.dataset.index}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
             scoreDisplay.style.color = '#fa5c0c';
             scoreDisplay.textContent = `Player 0's turn`;
             player.X.active = false;
         } else {
-            gameboard.array[`${e.target.dataset.row}`] = 'O';
+            gameboard.array[`${e.target.dataset.index}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
             scoreDisplay.style.color = '#ffd900';
@@ -78,7 +76,7 @@ const controller = (() => {
 
         let winner = game.winner();
 
-        if(winner) {
+        if (winner) {
             if (winner === 'X') {
                 controller.scoreDisplay.style.color = '#ffd900'
             } else {
@@ -158,6 +156,7 @@ const game = (() => {
 
             controller.scoreDisplay.textContent = 'Please click on the board to start the game';
             controller.scoreDisplay.style.color = 'inherit';
+            player.X.active = 'true';
         }
     };
 
