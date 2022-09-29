@@ -80,6 +80,9 @@ const controller = (() => {
                 controller.scoreDisplay.style.color = '#fa5c0c';
             }
             controller.scoreDisplay.textContent = `${winner} has won!`;
+
+            // Disable click on gameboard
+            e.target.parentNode.style.pointerEvents = 'none';
         }
     }
 
