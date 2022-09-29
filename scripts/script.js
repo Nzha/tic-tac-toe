@@ -14,7 +14,7 @@ const player = (() => {
 })();
 
 const gameboard = (() => {
-    const _gameboard = document.querySelector('.gameboard');
+    const div = document.querySelector('.gameboard');
 
     let array = [
         '', '', '',
@@ -30,12 +30,13 @@ const gameboard = (() => {
             const newSpace = document.createElement('div');
             newSpace.classList.add('space');
             newSpace.setAttribute('data-index', `${_index}`)
-            _gameboard.appendChild(newSpace);
+            div.appendChild(newSpace);
             _index++;
         }
     };
 
     return {
+        div,
         array,
         display
     };
@@ -82,7 +83,7 @@ const controller = (() => {
             controller.scoreDisplay.textContent = `${winner} has won!`;
 
             // Disable click on gameboard
-            e.target.parentNode.style.pointerEvents = 'none';
+            gameboard.div.style.pointerEvents = 'none';
         }
     }
 
@@ -154,6 +155,7 @@ const game = (() => {
                 space.textContent = '';
             });
 
+            gameboard.div.style.pointerEvents = 'auto';
             controller.scoreDisplay.textContent = 'Please click on the board to start the game';
             controller.scoreDisplay.style.color = 'inherit';
             player.X.active = 'true';
