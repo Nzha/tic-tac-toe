@@ -46,12 +46,12 @@ header > h2 {
 
 .gameboard {
     font-family: 'Merienda One', cursive;
-    width: 500px;
-    height: 500px;
+    width: 475px;
+    height: 475px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    margin: 4rem 0 4rem 0;
+    margin: 3.5rem 0 4.5rem 0;
 }
 
 .space {
