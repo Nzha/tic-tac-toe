@@ -31,6 +31,33 @@ header > h2 {
     margin: 2rem;
 }
 
+.players {
+    display: flex;
+    gap: 5rem;
+}
+
+.player:nth-child(1) {
+    color: #ffd900;
+}
+
+.player:nth-child(2) {
+    color: #fa5c0c;
+}
+
+button {
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: #212628;
+    color: #00bd9c;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 4rem;
+}
+
+button:hover {
+    background-color: black;
+}
+
 .main-content {
     display: flex;
     flex-direction: column;
@@ -39,7 +66,7 @@ header > h2 {
     flex: 1;
 }
 
-.score-display {
+.players {
     font-size: 2rem;
     min-height: 2.3rem;
 }
@@ -85,18 +112,4 @@ header > h2 {
 /* Right column */
 .space:nth-child(3n) {
     border-right: none;
-}
-
-button {
-    cursor: pointer;
-    font-size: 1.5rem;
-    background-color: #212628;
-    color: #00bd9c;
-    border: none;
-    border-radius: 8px;
-    padding: 1rem 4rem;
-}
-
-button:hover {
-    background-color: black;
 }

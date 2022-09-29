@@ -46,7 +46,7 @@ gameboard.display();
 
 const controller = (() => {
     const spaces = document.querySelectorAll('.space');
-    const scoreDisplay = document.querySelector('.score-display')    
+    const players = document.querySelector('.players')    
 
     spaces.forEach(space => space.addEventListener('click', display));
 
@@ -60,15 +60,13 @@ const controller = (() => {
             gameboard.array[`${e.target.dataset.index}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
-            scoreDisplay.style.color = '#fa5c0c';
-            scoreDisplay.textContent = `Player 0's turn`;
+            players.style.color = '#fa5c0c';
             player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.index}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
-            scoreDisplay.style.color = '#ffd900';
-            scoreDisplay.textContent = `Player X's turn`;
+            players.style.color = '#ffd900';
             player.X.active = true;
         }
 
@@ -76,11 +74,10 @@ const controller = (() => {
 
         if (winner) {
             if (winner === 'X') {
-                controller.scoreDisplay.style.color = '#ffd900'
+                controller.players.style.color = '#ffd900'
             } else {
-                controller.scoreDisplay.style.color = '#fa5c0c';
+                controller.players.style.color = '#fa5c0c';
             }
-            controller.scoreDisplay.textContent = `${winner} has won!`;
 
             // Disable click on gameboard
             gameboard.div.style.pointerEvents = 'none';
@@ -89,7 +86,7 @@ const controller = (() => {
 
     return {
         spaces,
-        scoreDisplay,
+        players,
         display
     };
 })();
@@ -156,8 +153,7 @@ const game = (() => {
             });
 
             gameboard.div.style.pointerEvents = 'auto';
-            controller.scoreDisplay.textContent = 'Please click on the board to start the game';
-            controller.scoreDisplay.style.color = 'inherit';
+            controller.players.style.color = 'inherit';
             player.X.active = 'true';
         }
     };
