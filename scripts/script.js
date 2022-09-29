@@ -46,7 +46,9 @@ gameboard.display();
 
 const controller = (() => {
     const spaces = document.querySelectorAll('.space');
-    const players = document.querySelector('.players')    
+    const players = document.querySelector('.players')  
+    const player1 = document.querySelector('#player1');
+    const player2 = document.querySelector('#player2');
 
     spaces.forEach(space => space.addEventListener('click', display));
 
@@ -60,13 +62,15 @@ const controller = (() => {
             gameboard.array[`${e.target.dataset.index}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
-            players.style.color = '#fa5c0c';
+            player2.style.backgroundColor = 'black';
+            player1.style.backgroundColor = '#212628';
             player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.index}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
-            players.style.color = '#ffd900';
+            player1.style.backgroundColor = 'black';
+            player2.style.backgroundColor = '#212628';
             player.X.active = true;
         }
 
