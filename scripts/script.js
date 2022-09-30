@@ -52,9 +52,11 @@ const userInterface = (() => {
     const players = document.querySelector('.players')  
     const player1 = document.querySelector('#player1');
     const player2 = document.querySelector('#player2');
+    const menu = document.querySelector('#menu');
 
     pvp.addEventListener('click', display)
     spaces.forEach(space => space.addEventListener('click', update));
+    menu.addEventListener('click', backToMenu)
 
     function display() {
         gameModeContainer.style.display = 'none';
@@ -96,6 +98,11 @@ const userInterface = (() => {
             // Disable click on gameboard
             gameboard.div.style.pointerEvents = 'none';
         }
+    }
+
+    function backToMenu() {
+        gameContainer.style.display = 'none';
+        gameModeContainer.style.display = 'flex';
     }
 
     return {

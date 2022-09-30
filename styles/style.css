@@ -151,6 +151,11 @@ button:hover {
     border-right: none;
 }
 
-button#reset {
+.options {
+    display: flex;
+    gap: 2rem;
+}
+
+.options > button {
     color: #00bd9c;
 }
