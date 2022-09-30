@@ -46,14 +46,15 @@ header > h2 {
 }
 
 .game-mode {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     gap: 2rem;
     background-color: #212628;
     font-size: 2rem;
     border: 1px solid black;
     border-radius: 6px;
-    padding: 2rem 4rem;
+    padding: 2rem 3rem;
     transition: all 0.07s ease;
 }
 
@@ -62,6 +63,10 @@ header > h2 {
     background: black;
     transform: scale(1.1);
     box-shadow: 0 0 0.5rem lightgray;
+}
+
+.player1 {
+    justify-self: end;
 }
 
 img.vs {
