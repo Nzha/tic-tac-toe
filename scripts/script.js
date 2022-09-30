@@ -44,17 +44,27 @@ const gameboard = (() => {
 
 gameboard.display();
 
-const controller = (() => {
+const userInterface = (() => {
+    const pvp = document.querySelector('#pvp')
+    const gameModeContainer = document.querySelector('.game-mode-container')
+    const gameContainer = document.querySelector('.game-container');
     const spaces = document.querySelectorAll('.space');
     const players = document.querySelector('.players')  
     const player1 = document.querySelector('#player1');
     const player2 = document.querySelector('#player2');
 
-    spaces.forEach(space => space.addEventListener('click', display));
+    pvp.addEventListener('click', display)
+    spaces.forEach(space => space.addEventListener('click', update));
+
+    function display() {
+        gameModeContainer.style.display = 'none';
+        gameContainer.style.display = 'flex';
+    }
 
     player.X.active = 'true';
+    player1.style.backgroundColor = 'black';
 
-    function display(e) {
+    function update(e) {
         // Return if space has already a mark
         if (e.target.textContent !== '') return;
 
@@ -78,9 +88,9 @@ const controller = (() => {
 
         if (winner) {
             if (winner === 'X') {
-                controller.players.style.color = '#ffd900'
+                userInterface.players.style.color = '#ffd900'
             } else {
-                controller.players.style.color = '#fa5c0c';
+                userInterface.players.style.color = '#fa5c0c';
             }
 
             // Disable click on gameboard
@@ -91,11 +101,11 @@ const controller = (() => {
     return {
         spaces,
         players,
-        display
+        update
     };
 })();
 
-controller.display;
+userInterface.update;
 
 const game = (() => {
 
@@ -152,13 +162,15 @@ const game = (() => {
         }
 
         function clearDisplay() {
-            controller.spaces.forEach(space => {
+            userInterface.spaces.forEach(space => {
                 space.textContent = '';
             });
 
             gameboard.div.style.pointerEvents = 'auto';
-            controller.players.style.color = 'inherit';
+            userInterface.players.style.color = 'inherit';
             player.X.active = 'true';
+            player1.style.backgroundColor = 'black';
+            player2.style.backgroundColor = '#212628';
         }
     };
 
