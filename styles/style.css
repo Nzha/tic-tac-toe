@@ -153,9 +153,10 @@ button:hover {
 
 .options {
     display: flex;
-    gap: 2rem;
+    gap: 5rem;
 }
 
 .options > button {
     color: #00bd9c;
+    border: 1px solid black;
 }
