@@ -17,12 +17,26 @@
         <h2>Tic-Tac-Toe</h2>
     </header>
     <div class="main-content">
-        <div class="players">
-            <button type="button" class="player" id="player1">Player X</button>
-            <button type="button" class="player" id="player2">Player O</button>
+        <div class="game-mode-container">
+            <div class="game-mode" id="pvp">
+                <div class="player1">Player</div>
+                <img src="./img/vs2.png" alt="vs" class="vs">
+                <div class="player2">Player</div>
+            </div>
+            <div class="game-mode" id="pvai">
+                <div class="player1">Player</div>
+                <img src="./img/vs2.png" alt="vs" class="vs">
+                <div class="AI">Computer</div>
+            </div>
         </div>
-        <div class="gameboard"></div>
-        <button type="button" id="reset">Reset</button>
+        <div class="game">
+            <div class="players">
+                <button type="button" class="player" id="player1">Player X</button>
+                <button type="button" class="player" id="player2">Player O</button>
+            </div>
+            <div class="gameboard"></div>
+            <button type="button" id="reset">Reset</button>
+        </div>
     </div>
 </body>
 </html>

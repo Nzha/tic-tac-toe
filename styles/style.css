@@ -31,17 +31,41 @@ header > h2 {
     margin: 2rem;
 }
 
-.players {
+
+.main-content {
     display: flex;
-    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
-.player:nth-child(1) {
-    color: #ffd900;
+.game-mode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
 }
 
-.player:nth-child(2) {
-    color: #fa5c0c;
+.game-mode {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: #212628;
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 2rem 4rem;
+    transition: all 0.07s ease;
+}
+
+.game-mode:hover {
+    cursor: pointer;
+    background: black;
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem lightgray;
+}
+
+img.vs {
+    width: 4rem;
 }
 
 button {
@@ -57,17 +81,26 @@ button:hover {
     background-color: black;
 }
 
-.main-content {
-    display: flex;
+.game {
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex: 1;
 }
 
 .players {
     font-size: 2rem;
     min-height: 2.3rem;
+    display: flex;
+    gap: 5rem;
+}
+
+.player:nth-child(1) {
+    color: #ffd900;
+}
+
+.player:nth-child(2) {
+    color: #fa5c0c;
 }
 
 .gameboard {
