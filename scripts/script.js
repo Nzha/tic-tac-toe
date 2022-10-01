@@ -101,6 +101,7 @@ const userInterface = (() => {
     }
 
     function backToMenu() {
+        game.reset();
         gameContainer.style.display = 'none';
         gameModeContainer.style.display = 'flex';
     }
@@ -115,6 +116,31 @@ const userInterface = (() => {
 userInterface.update;
 
 const game = (() => {
+    const resetBtn = document.querySelector('#reset');
+    resetBtn.addEventListener('click', reset);
+
+    function reset() { 
+        function clearArray() {
+            for (let i = 0; i < gameboard.array.length; i++) {
+                gameboard.array[i] = '';
+            }
+        }
+
+        function clearDisplay() {
+            userInterface.spaces.forEach(space => {
+                space.textContent = '';
+            });
+
+            gameboard.div.style.pointerEvents = 'auto';
+            userInterface.players.style.color = 'inherit';
+            player.X.active = 'true';
+            player1.style.backgroundColor = 'black';
+            player2.style.backgroundColor = '#212628';
+        }
+
+        clearArray();
+        clearDisplay();
+    }
 
     const winner = () => {
         /**
@@ -154,32 +180,32 @@ const game = (() => {
         return winner;
     };
 
-    const reset = () => {
-        const resetBtn = document.querySelector('#reset');
+    // const reset = () => {
+    //     const resetBtn = document.querySelector('#reset');
 
-        resetBtn.addEventListener('click', function() {
-            clearArray()
-            clearDisplay()
-        })
+    //     resetBtn.addEventListener('click', function() {
+    //         clearArray()
+    //         clearDisplay()
+    //     })
 
-        function clearArray() {
-            for (let i = 0; i < gameboard.array.length; i++) {
-                gameboard.array[i] = '';
-            }
-        }
+    //     function clearArray() {
+    //         for (let i = 0; i < gameboard.array.length; i++) {
+    //             gameboard.array[i] = '';
+    //         }
+    //     }
 
-        function clearDisplay() {
-            userInterface.spaces.forEach(space => {
-                space.textContent = '';
-            });
+    //     function clearDisplay() {
+    //         userInterface.spaces.forEach(space => {
+    //             space.textContent = '';
+    //         });
 
-            gameboard.div.style.pointerEvents = 'auto';
-            userInterface.players.style.color = 'inherit';
-            player.X.active = 'true';
-            player1.style.backgroundColor = 'black';
-            player2.style.backgroundColor = '#212628';
-        }
-    };
+    //         gameboard.div.style.pointerEvents = 'auto';
+    //         userInterface.players.style.color = 'inherit';
+    //         player.X.active = 'true';
+    //         player1.style.backgroundColor = 'black';
+    //         player2.style.backgroundColor = '#212628';
+    //     }
+    // };
 
     return {
         winner,
