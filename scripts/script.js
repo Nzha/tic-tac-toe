@@ -49,9 +49,7 @@ const userInterface = (() => {
     const gameModeContainer = document.querySelector('.game-mode-container')
     const gameContainer = document.querySelector('.game-container');
     const spaces = document.querySelectorAll('.space');
-    const players = document.querySelector('.players')  
-    const player1 = document.querySelector('#player1');
-    const player2 = document.querySelector('#player2');
+    const turn = document.querySelector('.turn');
     const menu = document.querySelector('#menu');
 
     pvp.addEventListener('click', display)
@@ -64,7 +62,8 @@ const userInterface = (() => {
     }
 
     player.X.active = 'true';
-    player1.style.backgroundColor = 'black';
+    turn.textContent = `Player X's turn`;
+    turn.style.color = '#ffd900'
 
     function update(e) {
         // Return if space has already a mark
@@ -74,15 +73,15 @@ const userInterface = (() => {
             gameboard.array[`${e.target.dataset.index}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
-            player2.style.backgroundColor = 'black';
-            player1.style.backgroundColor = '#212628';
+            turn.textContent = `Player O's turn`;
+            turn.style.color = '#fa5c0c'
             player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.index}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
-            player1.style.backgroundColor = 'black';
-            player2.style.backgroundColor = '#212628';
+            turn.textContent = `Player X's turn`;
+            turn.style.color = '#ffd900'
             player.X.active = true;
         }
 
@@ -90,9 +89,11 @@ const userInterface = (() => {
 
         if (winner) {
             if (winner === 'X') {
-                userInterface.players.style.color = '#ffd900'
+                turn.textContent = 'Player X won!';
+                turn.style.color = '#ffd900'
             } else {
-                userInterface.players.style.color = '#fa5c0c';
+                turn.textContent = 'Player O won!';
+                turn.style.color = '#fa5c0c'
             }
 
             // Disable click on gameboard
@@ -108,7 +109,7 @@ const userInterface = (() => {
 
     return {
         spaces,
-        players,
+        turn,
         update
     };
 })();
@@ -132,10 +133,14 @@ const game = (() => {
             });
 
             gameboard.div.style.pointerEvents = 'auto';
-            userInterface.players.style.color = 'inherit';
-            player.X.active = 'true';
-            player1.style.backgroundColor = 'black';
-            player2.style.backgroundColor = '#212628';
+
+            if (player.X.active) {
+                userInterface.turn.textContent = `Player X's turn`;
+                userInterface.turn.style.color = '#ffd900';
+            } else {
+                userInterface.turn.textContent = `Player O's turn`;
+                userInterface.turn.style.color = '#fa5c0c';
+            }
         }
 
         clearArray();
@@ -179,33 +184,6 @@ const game = (() => {
         });
         return winner;
     };
-
-    // const reset = () => {
-    //     const resetBtn = document.querySelector('#reset');
-
-    //     resetBtn.addEventListener('click', function() {
-    //         clearArray()
-    //         clearDisplay()
-    //     })
-
-    //     function clearArray() {
-    //         for (let i = 0; i < gameboard.array.length; i++) {
-    //             gameboard.array[i] = '';
-    //         }
-    //     }
-
-    //     function clearDisplay() {
-    //         userInterface.spaces.forEach(space => {
-    //             space.textContent = '';
-    //         });
-
-    //         gameboard.div.style.pointerEvents = 'auto';
-    //         userInterface.players.style.color = 'inherit';
-    //         player.X.active = 'true';
-    //         player1.style.backgroundColor = 'black';
-    //         player2.style.backgroundColor = '#212628';
-    //     }
-    // };
 
     return {
         winner,

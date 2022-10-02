@@ -93,19 +93,8 @@ button:hover {
     align-items: center;
 }
 
-.players {
-    font-size: 2rem;
-    min-height: 2.3rem;
-    display: flex;
-    gap: 5rem;
-}
-
-.player:nth-child(1) {
-    color: #ffd900;
-}
-
-.player:nth-child(2) {
-    color: #fa5c0c;
+.turn {
+    font-size: 2.5rem;
 }
 
 .gameboard {
