@@ -45,20 +45,20 @@ const gameboard = (() => {
 gameboard.display();
 
 const userInterface = (() => {
-    const pvp = document.querySelector('#pvp')
-    const gameModeContainer = document.querySelector('.game-mode-container')
-    const gameContainer = document.querySelector('.game-container');
+    const _pvp = document.querySelector('#pvp')
+    const _gameModeContainer = document.querySelector('.game-mode-container')
+    const _gameContainer = document.querySelector('.game-container');
+    const _menu = document.querySelector('#menu');
     const spaces = document.querySelectorAll('.space');
     const turn = document.querySelector('.turn');
-    const menu = document.querySelector('#menu');
 
-    pvp.addEventListener('click', display)
+    _pvp.addEventListener('click', display)
+    _menu.addEventListener('click', backToMenu)
     spaces.forEach(space => space.addEventListener('click', update));
-    menu.addEventListener('click', backToMenu)
 
     function display() {
-        gameModeContainer.style.display = 'none';
-        gameContainer.style.display = 'flex';
+        _gameModeContainer.style.display = 'none';
+        _gameContainer.style.display = 'flex';
     }
 
     player.X.active = 'true';
@@ -103,8 +103,8 @@ const userInterface = (() => {
 
     function backToMenu() {
         game.reset();
-        gameContainer.style.display = 'none';
-        gameModeContainer.style.display = 'flex';
+        _gameContainer.style.display = 'none';
+        _gameModeContainer.style.display = 'flex';
     }
 
     return {
@@ -117,17 +117,18 @@ const userInterface = (() => {
 userInterface.update;
 
 const game = (() => {
-    const resetBtn = document.querySelector('#reset');
-    resetBtn.addEventListener('click', reset);
+    const _resetBtn = document.querySelector('#reset');
+
+    _resetBtn.addEventListener('click', reset);
 
     function reset() { 
-        function clearArray() {
+        function _clearArray() {
             for (let i = 0; i < gameboard.array.length; i++) {
                 gameboard.array[i] = '';
             }
         }
 
-        function clearDisplay() {
+        function _clearDisplay() {
             userInterface.spaces.forEach(space => {
                 space.textContent = '';
             });
@@ -143,8 +144,8 @@ const game = (() => {
             }
         }
 
-        clearArray();
-        clearDisplay();
+        _clearArray();
+        _clearDisplay();
     }
 
     const winner = () => {
@@ -155,7 +156,7 @@ const game = (() => {
         * [6] [7] [8]
         */
         
-        const winningCombinations = [
+        const _winningCombinations = [
             // Rows
             [0, 1, 2],
             [3, 4, 5],
@@ -171,18 +172,18 @@ const game = (() => {
             [2, 4, 6]
           ];
 
-        let winner = null;            
+        let _winner = null;            
 
-        winningCombinations.forEach((winningCombination, index) => {
+        _winningCombinations.forEach((winningCombination, index) => {
             // Win if there is a mark in index 0 and it matches the marks in indexes 1 and 2.
             if (gameboard.array[winningCombination[0]]
                 && gameboard.array[winningCombination[0]] === gameboard.array[winningCombination[1]]
                 && gameboard.array[winningCombination[0]] === gameboard.array[winningCombination[2]])
                 {
-                winner = gameboard.array[winningCombination[0]];
+                _winner = gameboard.array[winningCombination[0]];
             }
         });
-        return winner;
+        return _winner;
     };
 
     return {
