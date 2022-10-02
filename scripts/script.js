@@ -52,6 +52,8 @@ const userInterface = (() => {
     const spaces = document.querySelectorAll('.space');
     const turn = document.querySelector('.turn');
 
+    let winner = '';
+
     _pvp.addEventListener('click', _display)
     _menu.addEventListener('click', _backToMenu)
     spaces.forEach(space => space.addEventListener('click', update));
@@ -73,31 +75,36 @@ const userInterface = (() => {
             gameboard.array[`${e.target.dataset.index}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
+            turn.style.color = '#fa5c0c';
             turn.textContent = `Player O's turn`;
-            turn.style.color = '#fa5c0c'
             player.X.active = false;
         } else {
             gameboard.array[`${e.target.dataset.index}`] = 'O';
             e.target.textContent = 'O';
             e.target.style.color = '#fa5c0c';
-            turn.textContent = `Player X's turn`;
             turn.style.color = '#ffd900'
+            turn.textContent = `Player X's turn`;
             player.X.active = true;
         }
 
-        let winner = game.winner();
+        winner = game.winner();
 
         if (winner) {
             if (winner === 'X') {
+                turn.style.color = '#ffd900';
                 turn.textContent = 'Player X won!';
-                turn.style.color = '#ffd900'
             } else {
+                turn.style.color = '#fa5c0c';
                 turn.textContent = 'Player O won!';
-                turn.style.color = '#fa5c0c'
             }
 
             // Disable click on gameboard
             gameboard.div.style.pointerEvents = 'none';
+        }
+
+        if (game.tie()) {
+            turn.style.color = 'lightgrey';
+            turn.textContent = `It's a tie!`;
         }
     }
 
@@ -110,6 +117,7 @@ const userInterface = (() => {
     return {
         spaces,
         turn,
+        winner,
         update
     };
 })();
@@ -120,33 +128,6 @@ const game = (() => {
     const _resetBtn = document.querySelector('#reset');
 
     _resetBtn.addEventListener('click', reset);
-
-    function reset() { 
-        function _clearArray() {
-            for (let i = 0; i < gameboard.array.length; i++) {
-                gameboard.array[i] = '';
-            }
-        }
-
-        function _clearDisplay() {
-            userInterface.spaces.forEach(space => {
-                space.textContent = '';
-            });
-
-            gameboard.div.style.pointerEvents = 'auto';
-
-            if (player.X.active) {
-                userInterface.turn.textContent = `Player X's turn`;
-                userInterface.turn.style.color = '#ffd900';
-            } else {
-                userInterface.turn.textContent = `Player O's turn`;
-                userInterface.turn.style.color = '#fa5c0c';
-            }
-        }
-
-        _clearArray();
-        _clearDisplay();
-    }
 
     const winner = () => {
         /**
@@ -186,8 +167,41 @@ const game = (() => {
         return _winner;
     };
 
+    const tie = () => {
+        const hasMarks = (el) => el !== '';
+        if (gameboard.array.every(hasMarks) && (!userInterface.winner)) return true;
+    };
+
+    function reset() { 
+        function _clearArray() {
+            for (let i = 0; i < gameboard.array.length; i++) {
+                gameboard.array[i] = '';
+            }
+        }
+
+        function _clearDisplay() {
+            userInterface.spaces.forEach(space => {
+                space.textContent = '';
+            });
+
+            gameboard.div.style.pointerEvents = 'auto';
+
+            if (player.X.active) {
+                userInterface.turn.textContent = `Player X's turn`;
+                userInterface.turn.style.color = '#ffd900';
+            } else {
+                userInterface.turn.textContent = `Player O's turn`;
+                userInterface.turn.style.color = '#fa5c0c';
+            }
+        }
+
+        _clearArray();
+        _clearDisplay();
+    }
+
     return {
         winner,
+        tie,
         reset
     };
 
