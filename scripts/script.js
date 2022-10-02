@@ -52,8 +52,6 @@ const userInterface = (() => {
     const spaces = document.querySelectorAll('.space');
     const turn = document.querySelector('.turn');
 
-    let winner = '';
-
     _pvp.addEventListener('click', _display)
     _menu.addEventListener('click', _backToMenu)
     spaces.forEach(space => space.addEventListener('click', update));
@@ -87,10 +85,8 @@ const userInterface = (() => {
             player.X.active = true;
         }
 
-        winner = game.winner();
-
-        if (winner) {
-            if (winner === 'X') {
+        if (game.winner()) {
+            if (game.winner() === 'X') {
                 turn.style.color = '#ffd900';
                 turn.textContent = 'Player X won!';
             } else {
@@ -117,7 +113,6 @@ const userInterface = (() => {
     return {
         spaces,
         turn,
-        winner,
         update
     };
 })();
@@ -169,7 +164,7 @@ const game = (() => {
 
     const tie = () => {
         const hasMarks = (el) => el !== '';
-        if (gameboard.array.every(hasMarks) && (!userInterface.winner)) return true;
+        if (gameboard.array.every(hasMarks) && (!winner())) return true;
     };
 
     function reset() { 
