@@ -54,9 +54,18 @@ const userInterface = (() => {
     const spaces = document.querySelectorAll('.space');
     const turn = document.querySelector('.turn');
 
+    let gameMode = '';
+
     _gameModes.forEach(_gameMode => _gameMode.addEventListener('click', _display));
     spaces.forEach(space => space.addEventListener('click', update));
     _menu.addEventListener('click', _backToMenu)
+
+    _pvp.addEventListener('click', () => {
+        gameMode = 'pvp';
+    });
+    _pvai.addEventListener('click', () => {
+        gameMode = 'pvai';
+    });
 
     function _display() {
         _gameModeContainer.style.display = 'none';
@@ -69,20 +78,48 @@ const userInterface = (() => {
         // Return if space has already a mark
         if (e.target.textContent !== '') return;
 
-        if (player.X.active) {
+        if (gameMode === 'pvp') {
+            if (player.X.active) {
+                gameboard.array[`${e.target.dataset.index}`] = 'X';
+                e.target.textContent = 'X';
+                e.target.style.color = '#ffd900';
+                turn.style.color = '#fa5c0c';
+                turn.textContent = `Player O's turn`;
+                player.X.active = false;
+            } else {
+                gameboard.array[`${e.target.dataset.index}`] = 'O';
+                e.target.textContent = 'O';
+                e.target.style.color = '#fa5c0c';
+                turn.style.color = '#ffd900'
+                turn.textContent = `Player X's turn`;
+                player.X.active = true;
+            }
+        }
+
+        if (gameMode === 'pvai') {
+
+            // Player round
             gameboard.array[`${e.target.dataset.index}`] = 'X';
             e.target.textContent = 'X';
             e.target.style.color = '#ffd900';
             turn.style.color = '#fa5c0c';
             turn.textContent = `Player O's turn`;
             player.X.active = false;
-        } else {
-            gameboard.array[`${e.target.dataset.index}`] = 'O';
-            e.target.textContent = 'O';
-            e.target.style.color = '#fa5c0c';
-            turn.style.color = '#ffd900'
+
+            // AI Round
+            const emptyIndexes = [];
+            for (let i = 0; i < gameboard.array.length; i++) {
+                if (gameboard.array[i] === '') emptyIndexes.push(i);
+            }
+            const randomEmptyIndex = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
+            gameboard.array[randomEmptyIndex] = 'O';
+            const test = document.querySelector(`[data-index='${randomEmptyIndex}']`);
+            test.textContent = '0';
+            test.style.color = '#fa5c0c';
+            turn.style.color = '#ffd900';
             turn.textContent = `Player X's turn`;
             player.X.active = true;
+
         }
 
         if (game.winner()) {
