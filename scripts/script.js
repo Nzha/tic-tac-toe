@@ -45,16 +45,18 @@ const gameboard = (() => {
 gameboard.display();
 
 const userInterface = (() => {
-    const _pvp = document.querySelector('#pvp')
     const _gameModeContainer = document.querySelector('.game-mode-container')
+    const _gameModes = document.querySelectorAll('.game-mode')
+    const _pvp = document.querySelector('#pvp')
+    const _pvai = document.querySelector('#pvai')
     const _gameContainer = document.querySelector('.game-container');
     const _menu = document.querySelector('#menu');
     const spaces = document.querySelectorAll('.space');
     const turn = document.querySelector('.turn');
 
-    _pvp.addEventListener('click', _display)
-    _menu.addEventListener('click', _backToMenu)
+    _gameModes.forEach(_gameMode => _gameMode.addEventListener('click', _display));
     spaces.forEach(space => space.addEventListener('click', update));
+    _menu.addEventListener('click', _backToMenu)
 
     function _display() {
         _gameModeContainer.style.display = 'none';
@@ -203,3 +205,7 @@ const game = (() => {
 })();
 
 game.reset();
+
+const ai = (() => {
+
+})();
