@@ -64,8 +64,6 @@ const userInterface = (() => {
     }
 
     player.X.active = 'true';
-    turn.textContent = `Player X's turn`;
-    turn.style.color = '#ffd900'
 
     function update(e) {
         // Return if space has already a mark
