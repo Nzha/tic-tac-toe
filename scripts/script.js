@@ -52,11 +52,11 @@ const userInterface = (() => {
     const spaces = document.querySelectorAll('.space');
     const turn = document.querySelector('.turn');
 
-    _pvp.addEventListener('click', display)
-    _menu.addEventListener('click', backToMenu)
+    _pvp.addEventListener('click', _display)
+    _menu.addEventListener('click', _backToMenu)
     spaces.forEach(space => space.addEventListener('click', update));
 
-    function display() {
+    function _display() {
         _gameModeContainer.style.display = 'none';
         _gameContainer.style.display = 'flex';
     }
@@ -101,7 +101,7 @@ const userInterface = (() => {
         }
     }
 
-    function backToMenu() {
+    function _backToMenu() {
         game.reset();
         _gameContainer.style.display = 'none';
         _gameModeContainer.style.display = 'flex';
