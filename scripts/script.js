@@ -163,18 +163,18 @@ const game = (() => {
     };
 
     const tie = () => {
-        const hasMarks = (el) => el !== '';
-        if (gameboard.array.every(hasMarks) && (!winner())) return true;
+        const _hasMarks = (el) => el !== '';
+        if (gameboard.array.every(_hasMarks) && (!winner())) return true;
     };
 
     function reset() { 
-        function _clearArray() {
+        function _array() {
             for (let i = 0; i < gameboard.array.length; i++) {
                 gameboard.array[i] = '';
             }
         }
 
-        function _clearDisplay() {
+        function _display() {
             userInterface.spaces.forEach(space => {
                 space.textContent = '';
             });
@@ -190,8 +190,8 @@ const game = (() => {
             }
         }
 
-        _clearArray();
-        _clearDisplay();
+        _array();
+        _display();
     }
 
     return {
