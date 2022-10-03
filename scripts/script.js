@@ -97,7 +97,6 @@ const userInterface = (() => {
         }
 
         if (gameMode === 'pvai') {
-
             // Player round
             gameboard.array[`${e.target.dataset.index}`] = 'X';
             e.target.textContent = 'X';
@@ -112,14 +111,15 @@ const userInterface = (() => {
                 if (gameboard.array[i] === '') emptyIndexes.push(i);
             }
             const randomEmptyIndex = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
+            console.log(emptyIndexes);
+            if (emptyIndexes.length === 0) return;
             gameboard.array[randomEmptyIndex] = 'O';
-            const test = document.querySelector(`[data-index='${randomEmptyIndex}']`);
-            test.textContent = '0';
-            test.style.color = '#fa5c0c';
+            const randomSpace = document.querySelector(`[data-index='${randomEmptyIndex}']`);
+            randomSpace.textContent = '0';
+            randomSpace.style.color = '#fa5c0c';
             turn.style.color = '#ffd900';
             turn.textContent = `Player X's turn`;
             player.X.active = true;
-
         }
 
         if (game.winner()) {
@@ -240,7 +240,3 @@ const game = (() => {
 })();
 
 game.reset();
-
-const ai = (() => {
-
-})();
