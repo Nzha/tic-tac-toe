@@ -107,19 +107,22 @@ const userInterface = (() => {
 
             // AI Round
             const emptyIndexes = [];
+
             for (let i = 0; i < gameboard.array.length; i++) {
                 if (gameboard.array[i] === '') emptyIndexes.push(i);
             }
+            
             const randomEmptyIndex = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
-            console.log(emptyIndexes);
-            if (emptyIndexes.length === 0) return;
-            gameboard.array[randomEmptyIndex] = 'O';
-            const randomSpace = document.querySelector(`[data-index='${randomEmptyIndex}']`);
-            randomSpace.textContent = '0';
-            randomSpace.style.color = '#fa5c0c';
-            turn.style.color = '#ffd900';
-            turn.textContent = `Player X's turn`;
-            player.X.active = true;
+
+            if (emptyIndexes.length !== 0) {
+                gameboard.array[randomEmptyIndex] = 'O';
+                const randomSpace = document.querySelector(`[data-index='${randomEmptyIndex}']`);
+                randomSpace.textContent = '0';
+                randomSpace.style.color = '#fa5c0c';
+                turn.style.color = '#ffd900';
+                turn.textContent = `Player X's turn`;
+                player.X.active = true;
+            }
         }
 
         if (game.winner()) {
