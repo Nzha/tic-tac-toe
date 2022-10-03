@@ -59,13 +59,8 @@ const userInterface = (() => {
     _gameModes.forEach(_gameMode => _gameMode.addEventListener('click', _display));
     spaces.forEach(space => space.addEventListener('click', update));
     _menu.addEventListener('click', _backToMenu)
-
-    _pvp.addEventListener('click', () => {
-        gameMode = 'pvp';
-    });
-    _pvai.addEventListener('click', () => {
-        gameMode = 'pvai';
-    });
+    _pvp.addEventListener('click', () => gameMode = 'pvp');
+    _pvai.addEventListener('click', () => gameMode = 'pvai');
 
     function _display() {
         _gameModeContainer.style.display = 'none';
@@ -111,7 +106,7 @@ const userInterface = (() => {
             for (let i = 0; i < gameboard.array.length; i++) {
                 if (gameboard.array[i] === '') emptyIndexes.push(i);
             }
-            
+
             const randomEmptyIndex = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
 
             if (emptyIndexes.length !== 0) {
