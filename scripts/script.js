@@ -13,10 +13,6 @@ const player = (() => {
     }
 })();
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const gameboard = (() => {
     const div = document.querySelector('.gameboard');
 
@@ -109,6 +105,10 @@ const userInterface = (() => {
         turn.textContent = `It's a tie!`;
     };
 
+    const _sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    };
+
     async function update(e) {
         // Return if space has already a mark
         if (e.target.textContent !== '') return;
@@ -122,7 +122,9 @@ const userInterface = (() => {
         }
 
         if (gameMode === 'pvai') {
-            // Player round
+            /**
+            * Player round
+            */
             _RoundPlayerX(e);
 
             if (game.winner()) {
@@ -135,17 +137,24 @@ const userInterface = (() => {
                 return;
             }
 
-            // AI Round
+            /**
+            * AI round
+            */
+            // Wait 300ms to display AI's mark and disable clicks on board during that time
+            gameboard.div.style.pointerEvents = 'none';
+            await _sleep(300);
+            gameboard.div.style.pointerEvents = 'auto';
+
             const emptyIndexes = [];
 
-            // await sleep(300);
-
+            // List empty indexes of gameboard array
             for (let i = 0; i < gameboard.array.length; i++) {
                 if (gameboard.array[i] === '') emptyIndexes.push(i);
             }
 
             const randomEmptyIndex = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
 
+            // Insert AI's mark into random empty index and display round
             if (emptyIndexes.length !== 0) {
                 gameboard.array[randomEmptyIndex] = 'O';
                 const randomSpace = document.querySelector(`[data-index='${randomEmptyIndex}']`);
