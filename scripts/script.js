@@ -69,7 +69,7 @@ const userInterface = (() => {
 
     player.X.active = 'true';
 
-    function _RoundPlayerX(e) {
+    const _RoundPlayerX = (e) => {
         gameboard.array[`${e.target.dataset.index}`] = 'X';
         e.target.textContent = 'X';
         e.target.style.color = '#ffd900';
@@ -78,7 +78,7 @@ const userInterface = (() => {
         player.X.active = false;
     }
 
-    function _RoundPlayerO(e) {
+    const _RoundPlayerO = (e) => {
         gameboard.array[`${e.target.dataset.index}`] = 'O';
         e.target.textContent = 'O';
         e.target.style.color = '#fa5c0c';
