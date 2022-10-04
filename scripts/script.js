@@ -69,36 +69,39 @@ const userInterface = (() => {
 
     player.X.active = 'true';
 
+    function _RoundPlayerX(e) {
+        gameboard.array[`${e.target.dataset.index}`] = 'X';
+        e.target.textContent = 'X';
+        e.target.style.color = '#ffd900';
+        turn.style.color = '#fa5c0c';
+        turn.textContent = `Player O's turn`;
+        player.X.active = false;
+    }
+
+    function _RoundPlayerO(e) {
+        gameboard.array[`${e.target.dataset.index}`] = 'O';
+        e.target.textContent = 'O';
+        e.target.style.color = '#fa5c0c';
+        turn.style.color = '#ffd900'
+        turn.textContent = `Player X's turn`;
+        player.X.active = true;
+    }
+
     function update(e) {
         // Return if space has already a mark
         if (e.target.textContent !== '') return;
 
         if (gameMode === 'pvp') {
             if (player.X.active) {
-                gameboard.array[`${e.target.dataset.index}`] = 'X';
-                e.target.textContent = 'X';
-                e.target.style.color = '#ffd900';
-                turn.style.color = '#fa5c0c';
-                turn.textContent = `Player O's turn`;
-                player.X.active = false;
+                _RoundPlayerX(e);
             } else {
-                gameboard.array[`${e.target.dataset.index}`] = 'O';
-                e.target.textContent = 'O';
-                e.target.style.color = '#fa5c0c';
-                turn.style.color = '#ffd900'
-                turn.textContent = `Player X's turn`;
-                player.X.active = true;
+                _RoundPlayerO(e);
             }
         }
 
         if (gameMode === 'pvai') {
             // Player round
-            gameboard.array[`${e.target.dataset.index}`] = 'X';
-            e.target.textContent = 'X';
-            e.target.style.color = '#ffd900';
-            turn.style.color = '#fa5c0c';
-            turn.textContent = `Player O's turn`;
-            player.X.active = false;
+            _RoundPlayerX(e);
 
             // AI Round
             const emptyIndexes = [];
