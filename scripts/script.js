@@ -13,6 +13,10 @@ const player = (() => {
     }
 })();
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const gameboard = (() => {
     const div = document.querySelector('.gameboard');
 
@@ -76,7 +80,7 @@ const userInterface = (() => {
         turn.style.color = '#fa5c0c';
         turn.textContent = `Player O's turn`;
         player.X.active = false;
-    }
+    };
 
     const _RoundPlayerO = (e) => {
         gameboard.array[`${e.target.dataset.index}`] = 'O';
@@ -85,9 +89,27 @@ const userInterface = (() => {
         turn.style.color = '#ffd900'
         turn.textContent = `Player X's turn`;
         player.X.active = true;
-    }
+    };
 
-    function update(e) {
+    const _win = () => {
+        if (game.winner() === 'X') {
+            turn.style.color = '#ffd900';
+            turn.textContent = 'Player X won!';
+        } else {
+            turn.style.color = '#fa5c0c';
+            turn.textContent = 'Player O won!';
+        }
+
+        // Disable click on gameboard
+        gameboard.div.style.pointerEvents = 'none';
+    };
+
+    const _tie = () => {
+        turn.style.color = 'lightgrey';
+        turn.textContent = `It's a tie!`;
+    };
+
+    async function update(e) {
         // Return if space has already a mark
         if (e.target.textContent !== '') return;
 
@@ -103,8 +125,20 @@ const userInterface = (() => {
             // Player round
             _RoundPlayerX(e);
 
+            if (game.winner()) {
+                _win();
+                return;
+            }
+    
+            if (game.tie()) {
+                _tie();
+                return;
+            }
+
             // AI Round
             const emptyIndexes = [];
+
+            // await sleep(300);
 
             for (let i = 0; i < gameboard.array.length; i++) {
                 if (gameboard.array[i] === '') emptyIndexes.push(i);
@@ -123,23 +157,8 @@ const userInterface = (() => {
             }
         }
 
-        if (game.winner()) {
-            if (game.winner() === 'X') {
-                turn.style.color = '#ffd900';
-                turn.textContent = 'Player X won!';
-            } else {
-                turn.style.color = '#fa5c0c';
-                turn.textContent = 'Player O won!';
-            }
-
-            // Disable click on gameboard
-            gameboard.div.style.pointerEvents = 'none';
-        }
-
-        if (game.tie()) {
-            turn.style.color = 'lightgrey';
-            turn.textContent = `It's a tie!`;
-        }
+        if (game.winner()) _win();
+        if (game.tie()) _tie();
     }
 
     function _backToMenu() {
