@@ -122,9 +122,7 @@ const userInterface = (() => {
         }
 
         if (gameMode === 'pvai') {
-            /**
-            * Player round
-            */
+            // Player round
             _RoundPlayerX(e);
 
             if (game.winner()) {
@@ -137,9 +135,7 @@ const userInterface = (() => {
                 return;
             }
 
-            /**
-            * AI round
-            */
+            // AI round
             // Wait 300ms to display AI's mark and disable clicks on board during that time
             gameboard.div.style.pointerEvents = 'none';
             await _sleep(300);
@@ -234,13 +230,13 @@ const game = (() => {
     };
 
     function reset() { 
-        function _array() {
+        function _clearArray() {
             for (let i = 0; i < gameboard.array.length; i++) {
                 gameboard.array[i] = '';
             }
         }
 
-        function _display() {
+        function _clearDisplay() {
             userInterface.spaces.forEach(space => {
                 space.textContent = '';
             });
@@ -256,8 +252,8 @@ const game = (() => {
             }
         }
 
-        _array();
-        _display();
+        _clearArray();
+        _clearDisplay();
     }
 
     return {
