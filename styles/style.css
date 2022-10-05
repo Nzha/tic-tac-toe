@@ -91,6 +91,7 @@ button:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 2rem;
 }
 
 .turn {
@@ -149,4 +150,18 @@ button:hover {
 .options > button {
     color: #00bd9c;
     border: 1px solid black;
+}
+
+footer {
+    margin-top: 2rem;
+}
+
+footer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;
+    text-decoration: none;
+    color: black;
 }
